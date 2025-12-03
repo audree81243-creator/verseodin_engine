@@ -1,0 +1,8 @@
+boto3
+python-decouple
+aiohttp
+beautifulsoup4
+httpx
+markdownify
+google-generativeai
+openai
