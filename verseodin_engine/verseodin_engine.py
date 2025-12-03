@@ -212,6 +212,9 @@ def main():
             payload = asyncio.run(process_task(website, opts))
             payload["job_id"] = job_id
             payload["source_queue"] = queue_url
+            for k in ("user_id", "user_email", "user_name"):
+                if k in body:
+                    payload[k] = body[k]
             processed += 1
             llm_responses = payload.get("llm_responses") or []
             if llm_responses:
