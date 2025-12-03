@@ -213,6 +213,12 @@ def main():
             payload["job_id"] = job_id
             payload["source_queue"] = queue_url
             processed += 1
+            llm_responses = payload.get("llm_responses") or []
+            if llm_responses:
+                preview = str(llm_responses[0])
+                logger.info(
+                    f"job_id={job_id} llm_response_preview={preview[:10000]}"
+                )
             logger.info(
                 f"Completed job_id={job_id} website={website} totals={payload.get('totals')}"
             )
