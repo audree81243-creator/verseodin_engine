@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd backend/verseodin_engine
+          cd verseodin_engine
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
@@ -40,5 +40,5 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PROXY_URL: ${{ secrets.PROXY_URL }}
         run: |
-          cd backend/verseodin_engine
+          cd verseodin_engine
           python verseodin_engine.py --work-seconds 420 --total-seconds 600 --poll-seconds 3 --task-timeout 240
