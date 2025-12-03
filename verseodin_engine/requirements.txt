@@ -6,3 +6,4 @@ httpx
 markdownify
 google-generativeai
 openai
+crawl4ai>=0.7.4
