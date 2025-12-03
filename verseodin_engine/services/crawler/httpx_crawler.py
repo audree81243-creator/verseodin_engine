@@ -63,7 +63,9 @@ class HttpxCrawler(Crawler):
         use_client = httpx.Client(follow_redirects=True, proxy=proxy)
 
         ctx = ssl.create_default_context()
-        ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
+        # Some OpenSSL builds on runners do not expose OP_LEGACY_SERVER_CONNECT; guard it.
+        if hasattr(ssl, "OP_LEGACY_SERVER_CONNECT"):
+            ctx.options |= ssl.OP_LEGACY_SERVER_CONNECT
         legacy_client = httpx.Client(follow_redirects=True, proxy=proxy, verify=ctx)
 
         log.info(
