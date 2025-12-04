@@ -10,14 +10,17 @@ permissions:
 jobs:
   worker:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 60
     strategy:
       matrix:
         worker:
           - name: worker1
-            delay: 0
+            delay: 0       # starts immediately
           - name: worker2
-            delay: 180   # 3 minutes
+            delay: 1200    # starts 20 minutes after worker1
+          - name: worker3
+            delay: 2400    # starts 40 minutes after worker1
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -52,4 +55,4 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
         run: |
           cd verseodin_engine
-          python verseodin_engine.py --work-seconds 420 --total-seconds 600 --poll-seconds 3 --task-timeout 240
+          python verseodin_engine.py --work-seconds 3600 --total-seconds 3600 --poll-seconds 3 --task-timeout 600
