@@ -1,4 +1,4 @@
-name: Verseodin engine
+name: Verseodin Engine
 
 on:
   workflow_dispatch: {}
@@ -10,17 +10,14 @@ permissions:
 jobs:
   worker:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 10
     strategy:
       matrix:
         worker:
           - name: worker1
-            delay: 0       # starts immediately
+            delay: 0
           - name: worker2
-            delay: 1200    # starts 20 minutes after worker1
-          - name: worker3
-            delay: 2400    # starts 40 minutes after worker1
-
+            delay: 180   # 3 minutes
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,7 +42,6 @@ jobs:
           cd verseodin_engine
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
       - name: Run verseodin engine
         env:
           SQS_QUEUE_URL: ${{ vars.SQS_QUEUE_URL }}
@@ -55,4 +51,4 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
         run: |
           cd verseodin_engine
-          python verseodin_engine.py --work-seconds 3000 --total-seconds 3600 --poll-seconds 3 --task-timeout 480
+          python verseodin_engine.py --work-seconds 420 --total-seconds 600 --poll-seconds 3 --task-timeout 240
