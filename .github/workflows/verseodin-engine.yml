@@ -1,4 +1,4 @@
-name: verseodin Engine
+name: Verseodin Engine
 
 on:
   workflow_dispatch: {}
@@ -15,12 +15,9 @@ jobs:
       matrix:
         worker:
           - name: worker1
-            delay: 0       # starts immediately
+            delay: 0
           - name: worker2
-            delay: 1200    # starts 20 minutes after worker1
-          - name: worker3
-            delay: 2400    # starts 40 minutes after worker1
-
+            delay: 600   # 10 minutes
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,4 +52,4 @@ jobs:
           PROXY_URL: ${{ secrets.PROXY_URL }}
         run: |
           cd verseodin_engine
-          python verseodin_engine.py --work-seconds 3600 --total-seconds 3600 --poll-seconds 3 --task-timeout 600
+          python verseodin_engine.py --work-seconds 3000 --total-seconds 3600 --poll-seconds 3 --task-timeout 480
