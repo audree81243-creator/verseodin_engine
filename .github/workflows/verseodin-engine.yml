@@ -1,4 +1,4 @@
-name: Verseodin Engine
+name: Verseodin engine
 
 on:
   workflow_dispatch: {}
